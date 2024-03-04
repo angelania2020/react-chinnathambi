@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styles in React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .letter {
+            padding: 10px;
+            margin: 10px;
+            background-color: #FFDE00;
+            color: #333;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 32px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+        class Letter extends React.Component {
+            render() {
+                return (
+                    <div className="letter">
+                        {this.props.children}
+                    </div>
+                );
+            }
+        }
+
+        var destination = document.querySelector("#container");
+
+        ReactDOM.render(
+            <div>
+                <Letter>a</Letter>
+                <Letter>e</Letter>
+                <Letter>i</Letter>
+                <Letter>o</Letter>
+                <Letter>u</Letter>
+            </div>,
+            destination
+        );
+    </script>
+</body>
+
+</html>

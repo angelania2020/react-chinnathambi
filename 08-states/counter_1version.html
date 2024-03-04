@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>States</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+        class LightningCounter extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    strikes: 0
+                };
+
+                this.timerTick = this.timerTick.bind(this);
+            }
+
+
+            // timerTick() {
+            //     this.setState({ strikes: this.state.strikes + 100 });
+            // }
+
+            // По причинам, связанным с производительностью, React может принять решение о периодическом пакетном обновлении состояния. Это может привести к тому, что исходное значение, хранящеесяв этом состоянии, не будет синхронизироваться с реальностью. Чтобы помочь в этом, метод setState дает вам доступ к предыдущему объекту состояния через аргумент prevState:
+            timerTick() {
+                this.setState(prevState => ({ strikes: this.state.strikes + 100 }));
+            }
+
+            componentDidMount() {
+                setInterval(this.timerTick, 1000);
+            }
+
+            render() {
+                var counterStyle = {
+                    color: "#66FFFF",
+                    fontSize: 50
+                };
+
+                var count = this.state.strikes.toLocaleString();
+
+                return (
+                    <h1 style={counterStyle}>{count}</h1>
+                );
+            }
+        }
+
+        class LightningCounterDisplay extends React.Component {
+            render() {
+                var divStyle = {
+                    width: 250,
+                    textAlign: "center",
+                    backgroundColor: "#020202",
+                    padding: 40,
+                    fontFamily: "sans-serif",
+                    color: "#999999",
+                    borderRadius: 10
+                };
+
+                var commonStyle = {
+                    margin: 0,
+                    padding: 0
+                };
+
+                var textStyles = {
+                    smallEmphasis: {
+                        textTransform: "uppercase",
+                        ...commonStyle
+                    },
+
+                    emphasis: {
+                        fontSize: 38,
+                        textTransform: "uppercase",
+                        ...commonStyle
+                    },
+
+                    small: {
+                        fontSize: 17,
+                        opacity: 0.5,
+                        ...commonStyle
+                    }
+                };
+
+                return (
+                    <div style={divStyle}>
+                        <LightningCounter />
+                        <h2 style={textStyles.smallEmphasis}>вспышки молнии</h2>
+                        <h2 style={textStyles.emphasis}>на планете</h2>
+                        <p style={textStyles.small}>(с момента запуска кода)</p>
+                    </div>
+                );
+            }
+        }
+
+        var destination = document.querySelector("#container");
+
+        ReactDOM.render(
+            <LightningCounterDisplay />,
+            destination
+        );
+    </script>
+</body>
+
+</html>

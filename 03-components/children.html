@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Компоненты React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        button[type=submit] {
+            background-color: transparent;
+            border: 10px solid rgb(249, 226, 49);
+            color: rgb(249, 226, 49);
+            padding: 16px 32px;
+            font-size: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        button[type=submit]:hover {
+            background-color: rgb(249, 226, 49);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+        class Buttonify extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <button type={this.props.behavior}>
+                            {this.props.children}
+                        </button>
+                    </div>
+                );
+            }
+        }
+
+        var destination = document.querySelector("#container");
+
+        ReactDOM.render(
+            <div>
+                <Buttonify behavior="submit">Send data</Buttonify>
+            </div>, destination
+        );
+    </script>
+</body>
+
+</html>
